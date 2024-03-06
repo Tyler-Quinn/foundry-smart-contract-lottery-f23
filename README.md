@@ -2,7 +2,10 @@
 
 ## About
 
-This code is to create a proveably random smart contract lottery.
+This code is to create a proveably random smart contract lottery. It implements Chainlink VRF and to select the winner from an array of participants and Chainlink Automation to trigger automatic payouts to the winner.
+
+From Patrick Collins' Foundry course
+https://github.com/Cyfrin/foundry-smart-contract-lottery-f23/tree/main
 
 ## What we want it to do
 
