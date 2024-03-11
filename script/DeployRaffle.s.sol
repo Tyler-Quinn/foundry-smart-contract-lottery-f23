@@ -44,7 +44,8 @@ contract DeployRaffle is Script {
             vrfCoordinator,
             gasLane,
             subscriptionId,
-            callbackGasLimit
+            callbackGasLimit,
+            address(0)
         );
         vm.stopBroadcast();
 
