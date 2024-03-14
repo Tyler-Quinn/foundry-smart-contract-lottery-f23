@@ -12,8 +12,8 @@ import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 contract CreateSubscription is Script {
 
     function createSubscriptionUsingConfig() public returns (uint64) {
-        HelperConfig helperConfig = new HelperConfig();
-        (, , address vrfCoordinator, , , , , uint256 deployerKey) = helperConfig.activeNetworkConfig();
+        HelperConfig helperConfig = new HelperConfig(address(0));
+        (, , address vrfCoordinator, , , , , uint256 deployerKey, ) = helperConfig.activeNetworkConfig();
         return createSubscription(vrfCoordinator, deployerKey);
     }
 
@@ -40,7 +40,7 @@ contract FundSubscription is Script {
     uint96 public constant FUND_AMOUNT = 3 ether;
 
     function fundSubscriptionUsingConfig() public {
-        HelperConfig helperConfig = new HelperConfig();
+        HelperConfig helperConfig = new HelperConfig(address(0));
         (
             ,
             ,
@@ -49,7 +49,8 @@ contract FundSubscription is Script {
             uint64 subId,
             ,
             address link,
-            uint256 deployerKey
+            uint256 deployerKey,
+            
         ) = helperConfig.activeNetworkConfig();
         fundSubscription(vrfCoordinator, subId, link, deployerKey);
     }
@@ -100,7 +101,7 @@ contract AddConsumer is Script {
     }
 
     function AddConsumerUsingConfig(address raffle) public {
-        HelperConfig helperConfig = new HelperConfig();
+        HelperConfig helperConfig = new HelperConfig(address(0));
         (
             ,
             ,
@@ -109,7 +110,8 @@ contract AddConsumer is Script {
             uint64 subId,
             ,
             ,
-            uint256 deployerKey
+            uint256 deployerKey,
+
         ) = helperConfig.activeNetworkConfig();
         addConsumer(raffle, vrfCoordinator, subId, deployerKey);
     }

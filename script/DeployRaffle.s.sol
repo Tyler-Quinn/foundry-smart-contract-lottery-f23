@@ -9,7 +9,7 @@ import {CreateSubscription, FundSubscription, AddConsumer} from "./Interactions.
 
 contract DeployRaffle is Script {
     function run() external returns (Raffle, HelperConfig) {
-        HelperConfig helperConfig = new HelperConfig();
+        HelperConfig helperConfig = new HelperConfig(address(0));
         (
             uint256 entranceFee,
             uint256 interval,
@@ -18,7 +18,8 @@ contract DeployRaffle is Script {
             uint64 subscriptionId,
             uint32 callbackGasLimit, 
             address link,
-            uint256 deployerKey
+            uint256 deployerKey,
+            address raffleToken
         ) = helperConfig.activeNetworkConfig();
 
         if (subscriptionId == 0) {

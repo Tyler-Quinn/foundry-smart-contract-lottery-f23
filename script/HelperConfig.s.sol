@@ -4,7 +4,8 @@ pragma solidity ^0.8.18;
 
 import {Script} from "../lib/forge-std/src/Script.sol";
 import {VRFCoordinatorV2Mock} from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
-import {LinkToken} from '../test/mocks/LinkToken.sol';
+import {LinkToken} from "../test/mocks/LinkToken.sol";
+import {MockERC20} from "../test/mocks/MockERC20.sol";
 
 contract HelperConfig is Script {
     struct NetworkConfig {
@@ -16,20 +17,21 @@ contract HelperConfig is Script {
         uint32 callbackGasLimit;
         address link;
         uint256 deployerKey;
+        address raffleToken;
     }
 
     uint256 private constant DEFAULT_ANVIL_KEY = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80; 
     NetworkConfig public activeNetworkConfig;
 
-    constructor() {
+    constructor(address token) {
         if (block.chainid == 11155111) {
-            activeNetworkConfig = getSepoliaEthConfig();
+            activeNetworkConfig = getSepoliaEthConfig(token);
         } else {
-            activeNetworkConfig = getOrCreateAnvilEthConfig();
+            activeNetworkConfig = getOrCreateAnvilEthConfig(token);
         }
     }
 
-    function getSepoliaEthConfig() public view returns (NetworkConfig memory) {
+    function getSepoliaEthConfig(address token) public view returns (NetworkConfig memory) {
         return NetworkConfig({
             entranceFee: 0.01 ether,
             interval: 30,
@@ -38,11 +40,12 @@ contract HelperConfig is Script {
             subscriptionId: 9936, // update this with our subId
             callbackGasLimit: 500000,
             link: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
-            deployerKey: vm.envUint("PRIVATE_KEY")
+            deployerKey: vm.envUint("PRIVATE_KEY"),
+            raffleToken: token
         });
     }
 
-    function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
+    function getOrCreateAnvilEthConfig(address token) public returns (NetworkConfig memory) {
         if (activeNetworkConfig.vrfCoordinator != address(0)) {
             return activeNetworkConfig;
         }
@@ -56,6 +59,9 @@ contract HelperConfig is Script {
             gasPriceLink
         );
         LinkToken link = new LinkToken();
+        if (token != address(0)) {
+            MockERC20 mockERC20 = new MockERC20("testToken", "TT");
+        }
         vm.stopBroadcast();
         
         return NetworkConfig({
@@ -66,7 +72,8 @@ contract HelperConfig is Script {
             subscriptionId: 0, // our script will add this
             callbackGasLimit: 500000,
             link: address(link),
-            deployerKey: DEFAULT_ANVIL_KEY
+            deployerKey: DEFAULT_ANVIL_KEY,
+            raffleToken: token
         });
     }
 }
