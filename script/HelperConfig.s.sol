@@ -59,9 +59,6 @@ contract HelperConfig is Script {
             gasPriceLink
         );
         LinkToken link = new LinkToken();
-        if (token != address(0)) {
-            MockERC20 mockERC20 = new MockERC20("testToken", "TT");
-        }
         vm.stopBroadcast();
         
         return NetworkConfig({
