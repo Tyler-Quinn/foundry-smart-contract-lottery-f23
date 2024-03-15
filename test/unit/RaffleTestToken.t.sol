@@ -71,7 +71,6 @@ contract RaffleTestToken is Test {
         deal(address(raffleToken), PLAYER, STARTING_USER_BALANCE);
         vm.prank(PLAYER);
         IERC20(raffleToken).approve(address(raffle), type(uint256).max);
-        console.log(entranceFee);
     }
 
     function testRaffleInitializedInOpenState() public {

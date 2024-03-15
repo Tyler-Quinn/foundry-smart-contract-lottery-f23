@@ -63,7 +63,6 @@ contract RaffleTestEth is Test {
             ,
         ) = helperConfig.activeNetworkConfig();
         vm.deal(PLAYER, STARTING_USER_BALANCE);
-        console.log(entranceFee);
     }
 
     function testRaffleInitializedInOpenState() public {
