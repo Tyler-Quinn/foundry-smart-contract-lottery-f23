@@ -60,12 +60,11 @@ contract RaffleTestToken is Test {
             entranceFee,
             interval,
             vrfCoordinator,
-            gasLane,
-            subscriptionId,
-            callbackGasLimit,
+            , //gasLane
+            , //subscriptionId
+            , //callbackGasLimit
             , //link
-            //deployerKey
-            ,
+            , //deployerKey
             raffleToken
         ) = helperConfig.activeNetworkConfig();
         deal(address(raffleToken), PLAYER, STARTING_USER_BALANCE);
