@@ -131,6 +131,14 @@ Go to [automation.chain.link](https://automation.chain.link/new) and register a 
 
 ![Automation](./img/automation.png)
 
+## Example Deployed Contracts
+
+For my testing, I have a Chainlink VRF with ID=9936 on Ethereum Sepolia. Here are some deployed contracts on Sepolia...
+
+0xfb4ed178d24edbab16ebe51c691329c0bfb00764 - Raffle for native ETH
+
+0xe24ed22205d55400d3fd921f3ce475ea4f3cdd3a - Raffle for LINK ERC20
+
 ## Scripts
 
 After deploying to a testnet or local net, you can run the scripts.
